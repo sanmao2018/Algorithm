@@ -1,11 +1,7 @@
 #pragma once
+#include <stdio.h>
 
 /***
-2分查找
+二分查找
 ***/
-#include <stdio.h>
-class BinarySearch
-{
-public:
-	int binarySearch(double *array,  int size,double key);
-}
+int binarySearch(double *array,  int size, double key);

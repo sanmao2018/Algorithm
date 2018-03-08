@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BinarySearch.h"
 //数据必须是排过序的,正序
-int BinarySearch::binarySearch(double * array, int size, double key)
+int binarySearch(double * array, int size, double key)
 {
 	int start = 0;
 	int end = size -1;
