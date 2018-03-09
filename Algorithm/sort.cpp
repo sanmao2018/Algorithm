@@ -1,5 +1,10 @@
 #include "sort.h"
-
+void swtich_position(double *a, double *b) {
+	double temp = 0.0;
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
 
 void selection_sort( double *array, int size) {
 	
@@ -20,15 +25,16 @@ void insertion_sort(double *array, int size) {
 	double temp = 0.0;
 	for (int i = 1; i < size; i++) {
 		temp = array[i];
-		for (int j = i - 1; j > 0; j--) {
+		int j = i - 1;
+		for (; j > 0; j--) {
 			if (array[j] < temp) {
 				break;
-			}
+			} 
 			else {
-				array[j+1] = a[j]
+				array[j + 1] = array[j];
 			}
 		}
-		a[j + 1] = temp;
+		array[j + 1] = temp;
 	}
 }
 
@@ -51,5 +57,77 @@ void bubble_sort(double *array, int size) {
 		}
 	}
 
+}
+
+
+void shell_sort(double *array, int size) {
+
+	int h = 1;
+	double temp = 0.0;
+	while (h < size / 3)
+	{
+		h = 3 * h + 1;
+	}
+	while (h >= 1) {
+		for (int i = 0; i < h; i++) {
+			while((i + h) < size) {
+				if (array[i] < array[i + h]) {
+					temp = array[i];
+					array[i + h] = array[i];
+					array[i] = temp;
+				}
+				i = i + h;
+			}
+		}
+		h = h / 3;
+	}
+}
+
+
+
+void meger(double *array, int left, int mid, int right) {
+	
+	double *a = new double[right - left + 1];
+	for (int i = left; i <= right; i++) {
+		a[i] = array[i];
+	}
+	int i = left;
+	int j = mid;
+	int t = 0;
+	while (i < mid && j <= right) {
+		if (array[i] < array[j])
+			a[t++] = array[i];
+		else
+			a[t++] = array[j];
+	}
+	while (i < mid) {
+		a[t++] = array[i++];
+	}
+	while (j < mid) {
+		a[t++] = array[j++];
+	}
+
+
+	for (int i = left; i <= right; i++) {
+		array[i] = a[i];
+	}
+}
+
+void sort(double *array, int left, int right) {
+
+	if (right - left + 1 == 2) {
+		if (array[right] < array[left])
+			swtich_position(&array[right], &array[left]);
+	}
+	else {
+		sort(array, left, (right - left) / 2 - 1);
+		sort(array, (right - left) / 2, right);
+	}
+	meger(array, left, (right - left) / 2, right);
+}
+
+void meger_sort(double *array, int size) {
+
+	sort(array, 0, size - 1);
 
 }
