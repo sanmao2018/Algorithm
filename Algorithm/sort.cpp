@@ -131,3 +131,32 @@ void meger_sort(double *array, int size) {
 	sort(array, 0, size - 1);
 
 }
+
+
+void sort1(double *array, int low, int hight) {
+	double key = array[low];
+	int first = low;
+	int last = hight;
+	while (first < last)
+	{
+		while (first < last&&array[first] <= key) {
+			first++;
+		}
+		swtich_position(&array[first], &array[last]);
+
+		while (first < last&&array[last] >= key)
+		{
+			last--;
+		}
+		swtich_position(&array[first], &array[last]);
+	}
+	array[first] = key;
+	sort1(array, low, first - 1);
+	sort1(array, first + 1, hight);
+}
+
+void quick_sort(double *array, int size) {
+
+	sort1(array, 0, size - 1);
+
+}
