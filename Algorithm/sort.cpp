@@ -158,5 +158,43 @@ void sort1(double *array, int low, int hight) {
 void quick_sort(double *array, int size) {
 
 	sort1(array, 0, size - 1);
+}
+
+void ajust_heep(double *array, int index, int size) {
+
+	double temp = array[index];
+	
+	for (int k = 2 * index + 1; k < size; k = 2 * k + 1) {
+		if (k + 1 < size && array[k + 1] > array[k]) {
+			k++;
+		}
+		
+		if (array[k] > array[index]) {
+			array[index] = array[k];
+			index = k;
+		}
+		else {
+			break;
+		}
+	}
+
+	array[index] = temp;
+	
+}
+
+void heep_sort(double *array, int size) {
+	
+	int index = size / 2 - 1;
+	//构造堆
+	for (; index >= 0; index--) {
+		ajust_heep(array, index, size);
+	}
+	//交换对顶与末尾元素，继续构造堆
+	for (int j = size - 1; j > 0; j--) {
+		swtich_position(&array[0], &array[j]);
+		ajust_heep(array, 0, j);
+	
+	}
+
 
 }
